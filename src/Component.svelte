@@ -24,6 +24,6 @@
 </script>
 
 <div use:styleable={$component.styles}>
-  <div>{text}</div>
+  <div>Following text will be generated as PDf{text}</div>
   <button on:click={generatePDF}>Generate PDF</button>
 </div>
