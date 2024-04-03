@@ -1,18 +1,20 @@
 // pdfPlugin.js
 
-import { PDFDocument, rgb } from "@pdf-lib/core";
+import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 
 const createPDF = async (content) => {
   const pdfDoc = await PDFDocument.create();
-  const page = pdfDoc.addPage([400, 600]);
-
+  const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman);
+  const page = pdfDoc.addPage();
+  const { width, height } = page.getSize();
+  const fontSize = 30;
   page.drawText(content, {
     x: 50,
-    y: page.getHeight() - 50,
-    size: 30,
-    color: rgb(0, 0, 0),
+    y: height - 4 * fontSize,
+    size: fontSize,
+    font: timesRomanFont,
+    color: rgb(0, 0.53, 0.71),
   });
-
   const pdfBytes = await pdfDoc.save();
 
   return pdfBytes;

@@ -1,15 +1,15 @@
 <script>
   import { getContext } from "svelte"
-  import pdfPlugin from './pdfPlugin.js';
-  export let text
-  // export let content = '';
+  import  createPDF  from './pdfPlugin.js';
+
+  export let text;
   const { styleable } = getContext("sdk")
 
   const component = getContext("component")
 
   const generatePDF = async () => {
         try {
-            const pdfBytes = await pdfPlugin.createPDF('test');
+            const pdfBytes = await createPDF(text);
             
             // Convert bytes to blob
             const blob = new Blob([pdfBytes], { type: 'application/pdf' });
@@ -24,6 +24,6 @@
 </script>
 
 <div use:styleable={$component.styles}>
-  <!-- <textarea bind:value={content}></textarea> -->
+  <div>{text}</div>
   <button on:click={generatePDF}>Generate PDF</button>
 </div>
